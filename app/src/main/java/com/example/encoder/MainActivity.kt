@@ -51,11 +51,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun encode (input: String): String {
         var output = ""
-        var letter = ' '
+        var letter: Char
         for (char in input) {
             letter = when {
-                char == ' ' -> char
-                char.toInt() - 13 < 97 -> (char.toInt() + 13).toChar() // -13+26 = +13
+                !char.isLetter() -> char
+                char.toInt()-13 < 65 -> (char.toInt() + 13).toChar()
+                char.isLowerCase() && char.toInt()-13 < 97 -> (char.toInt() + 13).toChar()
                 else -> (char.toInt() - 13).toChar()
             }
             output += letter

@@ -65,6 +65,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun decode(input: String): String {
-        return input
+        var output = ""
+        var letter: Char
+        for (char in input) {
+            letter = when {
+                !char.isLetter() -> char
+                char.isUpperCase() && char.toInt()+13 > 90 -> (char.toInt() - 13).toChar()
+                char.toInt()+13 > 122 -> (char.toInt() - 13).toChar()
+                else -> (char.toInt() + 13).toChar()
+            }
+            output += letter
+        }
+        return output
     }
 }

@@ -48,31 +48,36 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Please enter text", Toast.LENGTH_SHORT).show()
         }
     }
-
+    /* Notes:
+    *  65 corresponds to A
+    *  90 corresponds to Z
+    *  97 corresponds to a
+    *  122 corresponds to z
+    * */
     private fun encode (input: String): String {
         var output = ""
         var letter: Char
         for (char in input) {
             letter = when {
-                !char.isLetter() -> char
-                char.toInt()-13 < 65 -> (char.toInt() + 13).toChar()
-                char.isLowerCase() && char.toInt()-13 < 97 -> (char.toInt() + 13).toChar()
-                else -> (char.toInt() - 13).toChar()
+                !char.isLetter() -> char // current character is not letter
+                char.toInt()-13 < 65 -> (char.toInt() + 13).toChar() // current character is in upper case and will pass characters range after encoding
+                char.isLowerCase() && char.toInt()-13 < 97 -> (char.toInt() + 13).toChar() // current character is in lower case and will pass lower characters range after encoding
+                else -> (char.toInt() - 13).toChar() // current character will not pass its range after encoding
             }
             output += letter
         }
         return output
     }
 
-    private fun decode(input: String): String {
+    private fun decode (input: String): String {
         var output = ""
         var letter: Char
         for (char in input) {
             letter = when {
-                !char.isLetter() -> char
-                char.isUpperCase() && char.toInt()+13 > 90 -> (char.toInt() - 13).toChar()
-                char.toInt()+13 > 122 -> (char.toInt() - 13).toChar()
-                else -> (char.toInt() + 13).toChar()
+                !char.isLetter() -> char // current character is not letter
+                char.isUpperCase() && char.toInt()+13 > 90 -> (char.toInt() - 13).toChar() // current character is in upper case and will pass upper characters range after decoding
+                char.toInt()+13 > 122 -> (char.toInt() - 13).toChar() // current character is in lower case and will pass characters range after decoding
+                else -> (char.toInt() + 13).toChar() // current character will not pass its range after decoding
             }
             output += letter
         }
